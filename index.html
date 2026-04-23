@@ -11,6 +11,8 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png">
   <style>
     :root {
       /* Midnight & Azure Palette (Dark-Soft) */
@@ -25,7 +27,7 @@
       /* Ethereal Azure Blue */
       --accent-soft: rgba(59, 130, 246, 0.15);
       --border: rgba(255, 255, 255, 0.06);
-      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *,
@@ -42,22 +44,117 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #0a0b0d;
-      /* Slightly darker for better contrast */
+      background-color: var(--cream);
       color: var(--ink);
       line-height: 1.8;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      /* Subtle Architectural Grid - reduced opacity */
+      /* Midnight Azure Dynamic Background */
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 80px 80px;
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.08), transparent 40%);
+      background-size: 80px 80px, 80px 80px, 100% 100%, 100% 100%;
       background-attachment: fixed;
     }
 
     body.loading {
       overflow: hidden;
+    }
+
+    /* ─── CUSTOM SCROLLBAR ─── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--cream);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563EB;
+    }
+
+    /* ─── SCROLL PROGRESS ─── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), #60A5FA);
+      z-index: 10001;
+      transition: width 0.1s ease-out;
+    }
+
+    /* ─── GRAIN TEXTURE ─── */
+    .grain {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      right: -50%;
+      bottom: -50%;
+      width: 200%;
+      height: 200%;
+      background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+      background-repeat: repeat;
+      animation: noise 1s steps(2) infinite;
+      opacity: .05;
+      visibility: visible;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes noise {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      10% {
+        transform: translate(-5%, -5%)
+      }
+
+      20% {
+        transform: translate(-10%, 5%)
+      }
+
+      30% {
+        transform: translate(5%, -10%)
+      }
+
+      40% {
+        transform: translate(-5%, 15%)
+      }
+
+      50% {
+        transform: translate(-10%, 5%)
+      }
+
+      60% {
+        transform: translate(15%, 0)
+      }
+
+      70% {
+        transform: translate(0, 10%)
+      }
+
+      80% {
+        transform: translate(-15%, 0)
+      }
+
+      90% {
+        transform: translate(10%, 5%)
+      }
+
+      100% {
+        transform: translate(5%, 0)
+      }
     }
 
     /* ─── LOADING SCREEN ─── */
@@ -153,6 +250,84 @@
       animation-delay: 0.5s;
     }
 
+    #welcome-overlay {
+      position: fixed;
+      inset: 0;
+      background: #121418;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 11000;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1);
+      transition: opacity 1s var(--ease), visibility 1s var(--ease), transform 1.2s var(--ease);
+    }
+
+    #welcome-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .welcome-text-wrap {
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .welcome-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 10vw, 5rem);
+      color: var(--ink);
+      transform: translateY(110%);
+      transition: transform 1.2s var(--ease);
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-title span {
+      color: var(--accent);
+      font-style: italic;
+      margin-left: 0.5rem;
+    }
+
+    .welcome-subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s var(--ease) 0.4s;
+    }
+
+    #welcome-overlay.animating .welcome-title {
+      transform: translateY(0);
+    }
+
+    #welcome-overlay.animating .welcome-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .welcome-progress-container {
+      position: absolute;
+      bottom: 10%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .welcome-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 2.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
     /* ─── NAV ─── */
     nav {
       position: fixed;
@@ -163,18 +338,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(18, 20, 24, 0.85);
-      backdrop-filter: blur(20px);
+      background: rgba(18, 20, 24, 0.7);
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
       z-index: 1000;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-logo {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo:hover img {
+      transform: scale(1.05);
     }
 
     .nav-links {
@@ -230,10 +415,147 @@
       color: var(--ink);
     }
 
-    .hero h1 span {
-      display: block;
+    .hero h1 #hero-line-1 {
+      color: var(--ink);
+      font-style: normal;
+    }
+
+    .hero h1 #hero-line-2 {
       color: var(--accent);
       font-style: italic;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 10%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      transition: opacity 1s var(--ease) 1s;
+    }
+
+    body.loaded .scroll-indicator {
+      opacity: 0.6;
+    }
+
+    .scroll-indicator span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      writing-mode: vertical-lr;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: #fff;
+      animation: scroll-move 2s infinite;
+    }
+
+    @keyframes scroll-move {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(250%);
+      }
+    }
+
+    .hero h1 span#typewriter {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero h1 .line {
+      display: block;
+      overflow: hidden;
+      height: 1.2em;
+    }
+
+    .hero h1 .line span {
+      display: inline-block;
+      white-space: nowrap;
+      width: 0;
+      overflow: hidden;
+      border-right: 2px solid var(--accent);
+    }
+
+    .hero h1 .line span.typing {
+      border-right-color: var(--accent);
+    }
+
+    .hero h1 .line span:not(.typing) {
+      border-right-color: transparent;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      background-color: var(--accent);
+      margin-left: 8px;
+      vertical-align: middle;
+      animation: blink-cursor 1s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Glow Cursor */
+    .glow-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      background: rgba(59, 130, 246, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      mix-blend-mode: screen;
+      filter: blur(10px);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
+
+    .glow-cursor.hovering {
+      width: 70px;
+      height: 70px;
+      background: rgba(59, 130, 246, 0.6);
+      filter: blur(15px);
     }
 
     .hero-actions {
@@ -242,6 +564,7 @@
     }
 
     .btn {
+      position: relative;
       padding: 1rem 2.5rem;
       font-size: 0.85rem;
       text-decoration: none;
@@ -250,16 +573,37 @@
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: 0.6s;
+      pointer-events: none;
+    }
+
+    .btn:hover::after {
+      left: 100%;
     }
 
     .btn-primary {
       background: var(--ink);
       color: var(--cream);
+      box-shadow: 0 10px 20px -10px rgba(224, 224, 224, 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent);
+      color: #fff;
       transform: translateY(-2px);
+      box-shadow: 0 15px 25px -10px rgba(59, 130, 246, 0.4);
     }
 
     .btn-outline {
@@ -443,6 +787,49 @@
       border-color: var(--accent);
       background: var(--accent-soft);
       color: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    /* ─── SERVICES ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      padding: 3rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.5s var(--ease);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .service-card i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .service-card:hover {
+      background: var(--bg-soft);
+      border-color: var(--accent);
+      transform: translateY(-10px);
     }
 
     /* ─── CONTACT ─── */
@@ -450,29 +837,172 @@
       display: grid;
       grid-template-columns: 1fr 1.2fr;
       gap: 10%;
+      align-items: center;
     }
 
-    .field {
-      margin-bottom: 2.5rem;
+    /* ── Interactive Form Widget ── */
+    .cf-checkbox {
+      display: none;
     }
 
-    .field input,
-    .field textarea {
+    .cf-wrap {
+      position: relative;
       width: 100%;
-      padding: 1.25rem 0;
+      max-width: 460px;
+    }
+
+    /* the card panel */
+    .cf-panel {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem 2.2rem 1.8rem;
+      position: relative;
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.5);
+      transition: box-shadow 0.4s var(--ease);
+    }
+
+    .cf-panel:hover {
+      box-shadow: 0 28px 70px -16px rgba(59, 130, 246, 0.15);
+    }
+
+    /* ── Trigger button (Notify me pill) ── */
+    .cf-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      width: fit-content;
+      padding: 0.85rem 1.8rem;
+      border-radius: 50px;
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.35s var(--ease);
+      user-select: none;
+      margin-bottom: 0;
+    }
+
+    .cf-trigger:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4);
+    }
+
+    .cf-trigger i {
+      font-size: 1rem;
+      transition: transform 0.35s var(--ease);
+    }
+
+    /* ── Fields container — hidden by default ── */
+    .cf-fields {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition:
+        max-height 0.55s var(--ease),
+        opacity 0.4s var(--ease),
+        transform 0.4s var(--ease);
+      pointer-events: none;
+    }
+
+    /* ── Checked state: expand fields ── */
+    .cf-panel.cf-open .cf-fields {
+      max-height: 600px;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .cf-panel.cf-open .cf-trigger {
+      background: var(--accent);
+      color: #fff;
+      margin-bottom: 1.8rem;
+      width: 100%;
+    }
+
+    .cf-panel.cf-open .cf-trigger .cf-icon-plus {
+      transform: rotate(45deg);
+    }
+
+    /* ── Individual fields ── */
+    .cf-field {
+      margin-bottom: 1.6rem;
+      position: relative;
+    }
+
+    .cf-field label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .cf-field input,
+    .cf-field textarea {
+      width: 100%;
+      padding: 0.85rem 0;
       background: none;
       border: none;
       border-bottom: 1px solid var(--border);
       font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      outline: none;
+      font-size: 0.95rem;
       color: var(--ink);
-      transition: border-color 0.4s;
+      outline: none;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+      resize: none;
     }
 
-    .field input:focus,
-    .field textarea:focus {
-      border-color: var(--accent);
+    .cf-field input::placeholder,
+    .cf-field textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .cf-field input:focus,
+    .cf-field textarea:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Send button ── */
+    .cf-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.35s var(--ease);
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .cf-submit:hover {
+      background: #2563EB;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.5);
+    }
+
+    .cf-submit i {
+      font-size: 0.85rem;
     }
 
     /* ─── FOOTER ─── */
@@ -657,7 +1187,7 @@
       width: 100%;
       height: 100%;
       transform: rotate(-45deg);
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
     }
 
@@ -745,13 +1275,41 @@
     /* ─── ANIMATION ─── */
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: all 1s var(--ease);
+      transform: translateY(40px) scale(0.98);
+      transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+      will-change: opacity, transform;
     }
 
     .reveal.active {
       opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Hero Load Animations */
+    .hero-pre,
+    .hero h1,
+    .hero-actions {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s var(--ease);
+    }
+
+    body.loaded .hero-pre {
+      opacity: 1;
       transform: translateY(0);
+      transition-delay: 0.1s;
+    }
+
+    body.loaded .hero h1 {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.3s;
+    }
+
+    body.loaded .hero-actions {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.5s;
     }
 
     @media (max-width: 900px) {
@@ -892,9 +1450,26 @@
     </div>
   </div>
 
+  <!-- WELCOME OVERLAY -->
+  <div id="welcome-overlay">
+    <div class="welcome-text-wrap">
+      <h2 class="welcome-title">Mahardika<span>Rofiq</span></h2>
+      <p class="welcome-subtitle">Creative Frontend Developer</p>
+    </div>
+    <div class="welcome-progress-container">
+      <div class="welcome-progress-bar" id="welcome-progress"></div>
+    </div>
+  </div>
+
+  <div class="grain"></div>
+
   <!-- NAVIGATION -->
   <nav>
-    <a href="#" class="nav-logo">Creative/Architect</a>
+    <a href="#" class="nav-logo">
+      <img
+        src="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png"
+        alt="Logo">
+    </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Work</a></li>
@@ -912,18 +1487,31 @@
     <!-- Content -->
     <div class="hero-content">
       <span class="hero-pre">Frontend Developer</span>
-      <h1>Building Digital<br><span>Digital Experiences.</span></h1>
+      <h1>
+        <div class="line"><span id="hero-line-1">Building Digital</span></div>
+        <div class="line"><span id="hero-line-2">Experiences.</span></div>
+      </h1>
       <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">Check Projects</a>
-        <a href="#contact" class="btn btn-outline">Let's Talk</a>
+        <a href="#projects" class="btn btn-primary magnetic">Check Projects</a>
+        <a href="#contact" class="btn btn-outline magnetic">Let's Talk</a>
       </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="scroll-line"></div>
     </div>
   </header>
 
+  <!-- Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+  </header>
+
   <!-- ABOUT -->
-  <section id="about" class="reveal">
+  <section id="about">
     <div class="about-wrap">
-      <div class="about-content">
+      <div class="about-content reveal">
         <small class="label">Mahardika Rofiq</small>
         <h2 class="section-title">Front-end is where design meets functionality.</h2>
 
@@ -941,19 +1529,38 @@
           <div class="skill-box">System Design</div>
         </div>
       </div>
-      <div class="about-image">
+      <div class="about-image reveal">
         <div class="about-image-inner">
           <img
             src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776780976/WhatsApp_Image_2026-04-21_at_20.15.05_iwyu3o.jpg">
         </div>
       </div>
     </div>
+
+    <!-- What I Do Section -->
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <i class="fas fa-code"></i>
+        <h3>Web Development</h3>
+        <p>Membangun struktur website yang kokoh, cepat, dan SEO-friendly menggunakan teknologi modern.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-bezier-curve"></i>
+        <h3>UI/UX Design</h3>
+        <p>Mendesain antarmuka yang intuitif dan estetik untuk memberikan pengalaman pengguna yang tak terlupakan.</p>
+      </div>
+      <div class="service-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Responsive Design</h3>
+        <p>Memastikan website Anda terlihat sempurna di semua perangkat, mulai dari ponsel hingga desktop.</p>
+      </div>
+    </div>
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="reveal">
+  <section id="projects">
     <!-- Tech Loop 2 -->
-    <div class="marquee-container" style="margin-bottom: 5rem; border: none; opacity: 0.6;">
+    <div class="marquee-container reveal" style="margin-bottom: 5rem; border: none; opacity: 0.6;">
       <div class="marquee-content" style="animation-direction: reverse; animation-duration: 30s;">
         <span class="marquee-item"><i class="fab fa-html5"></i> HTML</span>
         <span class="marquee-item"><i class="fab fa-laravel"></i> Laravel</span>
@@ -971,11 +1578,11 @@
       </div>
     </div>
 
-    <small class="label">Featured Work</small>
-    <h2 class="section-title">Selected Projects</h2>
+    <small class="label reveal">Featured Work</small>
+    <h2 class="section-title reveal">Selected Projects</h2>
     <div class="project-grid">
       <!-- Project 1 -->
-      <a href="https://notes-app-modern-ai-edition.vercel.app/" target="_blank" class="project-card">
+      <a href="https://notes-app-modern-ai-edition.vercel.app/" target="_blank" class="project-card reveal">
         <div class="project-visual">
           <iframe src="https://notes-app-modern-ai-edition.vercel.app/" scrolling="no"></iframe>
         </div>
@@ -985,7 +1592,7 @@
         </div>
       </a>
       <!-- Project 2 -->
-      <a href="https://klik-bunga.vercel.app/" target="_blank" class="project-card">
+      <a href="https://klik-bunga.vercel.app/" target="_blank" class="project-card reveal">
         <div class="project-visual">
           <iframe src="https://klik-bunga.vercel.app/" scrolling="no"></iframe>
         </div>
@@ -995,7 +1602,7 @@
         </div>
       </a>
       <!-- Project 3 -->
-      <a href="https://sharinganvcv.github.io/valentine/" target="_blank" class="project-card">
+      <a href="https://sharinganvcv.github.io/valentine/" target="_blank" class="project-card reveal">
         <div class="project-visual">
           <iframe src="https://sharinganvcv.github.io/valentine/" scrolling="no"></iframe>
         </div>
@@ -1005,7 +1612,7 @@
         </div>
       </a>
       <!-- Project 4 -->
-      <a href="https://sharinganvcv.github.io/cake/" target="_blank" class="project-card">
+      <a href="https://sharinganvcv.github.io/cake/" target="_blank" class="project-card reveal">
         <div class="project-visual">
           <iframe src="https://sharinganvcv.github.io/cake/" scrolling="no"></iframe>
         </div>
@@ -1015,7 +1622,7 @@
         </div>
       </a>
       <!-- Project 5 -->
-      <a href="https://sharinganvcv.github.io/crusor/" target="_blank" class="project-card">
+      <a href="https://sharinganvcv.github.io/crusor/" target="_blank" class="project-card reveal">
         <div class="project-visual">
           <iframe src="https://sharinganvcv.github.io/crusor/" scrolling="no"></iframe>
         </div>
@@ -1028,12 +1635,12 @@
   </section>
 
   <!-- CERTIFICATES -->
-  <section id="certificates" class="reveal">
-    <small class="label">Recognition</small>
-    <h2 class="section-title">Certificates & Achievements</h2>
+  <section id="certificates">
+    <small class="label reveal">Recognition</small>
+    <h2 class="section-title reveal">Certificates & Achievements</h2>
     <div class="cert-grid">
       <!-- Cert 1 -->
-      <div class="cert-card">
+      <div class="cert-card reveal">
         <img
           src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781080/Screenshot_2026-04-21_202935_nal36i.png"
           alt="Fullstack Certificate">
@@ -1049,7 +1656,7 @@
         </div>
       </div>
       <!-- Cert 2 -->
-      <div class="cert-card">
+      <div class="cert-card reveal">
         <img
           src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781081/Screenshot_2026-04-21_203021_ojpwxb.png">
         <div class="cert-overlay">
@@ -1065,7 +1672,7 @@
         </div>
       </div>
       <!-- Cert 3 -->
-      <div class="cert-card">
+      <div class="cert-card reveal">
         <img
           src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781081/Screenshot_2026-04-21_203106_vowyyn.png"
           alt="Database Certificate">
@@ -1091,38 +1698,74 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="reveal">
+  <section id="contact">
     <div class="contact-grid">
-      <div>
+
+      <!-- Left: info -->
+      <div class="reveal">
         <small class="label">Inquiries</small>
         <h2 class="section-title">Let's create<br>something great.</h2>
-        <p style="color: var(--muted); max-width: 300px; margin-bottom: 2rem;">Saya selalu terbuka untuk kolaborasi baru
-          atau sekadar diskusi ringan.</p>
+        <p style="color: var(--muted); max-width: 300px; margin-bottom: 2rem;">
+          Saya selalu terbuka untuk kolaborasi baru atau sekadar diskusi ringan.
+        </p>
         <div style="margin-top: 2rem;">
           <small class="label" style="margin-bottom: 0.5rem; display: block; opacity: 0.6;">Direct Email</small>
           <a href="mailto:rofikmahardika58@gmail.com"
-            style="color: var(--accent); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.9rem;">rofikmahardika58@gmail.com</a>
+            style="color: var(--accent); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.9rem;">
+            rofikmahardika58@gmail.com
+          </a>
         </div>
       </div>
-      <!-- Note: To make this form fully functional without a backend, I recommend using Formspree.io -->
-      <form class="contact-form" action="https://formspree.io/f/xqewdvjo" method="POST">
-        <div class="field">
-          <input type="text" name="name" placeholder="Full Name" required>
+
+      <!-- Right: interactive form widget -->
+      <div class="reveal" style="display: flex; justify-content: center;">
+        <div class="cf-wrap">
+          <div class="cf-panel" id="cf-panel">
+
+            <!-- Trigger pill -->
+            <div class="cf-trigger" id="cf-trigger" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="cf-fields">
+              <i class="fas fa-bell"></i>
+              <span>Send me a Message</span>
+              <i class="fas fa-plus cf-icon-plus" style="margin-left: auto;"></i>
+            </div>
+
+            <!-- Expandable fields -->
+            <div class="cf-fields" id="cf-fields">
+              <form action="https://formspree.io/f/xqewdvjo" method="POST">
+                <div class="cf-field">
+                  <label for="cf-name">Full Name</label>
+                  <input id="cf-name" type="text" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="cf-field">
+                  <label for="cf-email">Email Address</label>
+                  <input id="cf-email" type="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="cf-field">
+                  <label for="cf-msg">Your Message</label>
+                  <textarea id="cf-msg" name="message" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button class="cf-submit" type="submit">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+              </form>
+            </div>
+
+          </div>
         </div>
-        <div class="field">
-          <input type="email" name="email" placeholder="Email Address" required>
-        </div>
-        <div class="field">
-          <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="border:none; cursor:pointer;">Send Message</button>
-      </form>
+      </div>
+
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 Creative Portfolio. Serene Experience.</p>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <img
+        src="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png"
+        alt="Logo" style="height: 30px; width: fit-content; opacity: 0.6; filter: brightness(2);">
+      <p>&copy; 2026 Creative Portfolio. Serene Experience.</p>
+    </div>
     <div>
       <a href="mailto:rofikmahardika58@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/mahardika-rofiq-96117a39b/">LinkedIn</a>
@@ -1156,24 +1799,136 @@
       starsContainer.appendChild(star);
     }
 
-    // Reveal Observer
-    const observer = new IntersectionObserver((entries) => {
+    // --- SEQUENTIAL ANIMATION LOGIC ---
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader-wrapper');
+      const welcome = document.getElementById('welcome-overlay');
+      const progress = document.getElementById('welcome-progress');
+
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+      async function runSequence() {
+        // 1. Loader Shine Phase
+        await sleep(1000);
+
+        // 2. Transition Loader -> Welcome
+        // We start welcome active while loader is fading for seamless flow
+        loader.classList.add('hidden');
+        welcome.classList.add('active');
+
+        await sleep(100);
+        welcome.classList.add('animating');
+        progress.style.width = '100%';
+
+        // 3. Welcome Presentation Phase
+        // The bar takes 2.5s, we reveal content slightly before it ends for "liquid" feel
+        await sleep(2400);
+
+        // 4. Final Reveal
+        welcome.style.opacity = '0';
+        welcome.style.transform = 'scale(1.05)';
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+
+        await sleep(1000);
+        welcome.classList.remove('active');
+        welcome.style.visibility = 'hidden';
+      }
+
+      runSequence();
+    });
+
+    // --- 3D TILT EFFECT ---
+    const tiltCards = document.querySelectorAll('.project-card, .cert-card, .about-image-inner');
+    tiltCards.forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -6; // 6 deg tilt
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        el.style.transition = 'transform 0.1s ease-out';
+      });
+
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+    });
+
+    // --- GLOW CURSOR ---
+    const glowCursor = document.createElement('div');
+    glowCursor.className = 'glow-cursor';
+    document.body.appendChild(glowCursor);
+
+    document.addEventListener('mousemove', (e) => {
+      glowCursor.style.left = e.clientX + 'px';
+      glowCursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button, .project-card, .cert-card').forEach(el => {
+      el.addEventListener('mouseenter', () => glowCursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => glowCursor.classList.remove('hovering'));
+    });
+
+    // Reveal Observer with Delay Stagger
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      let delay = 0;
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+          setTimeout(() => {
+            entry.target.classList.add('active');
+          }, delay);
+          delay += 150; // stagger 150ms for elements appearing at the same time
+          observer.unobserve(entry.target); // Reveal only once for cleaner experience
         }
       });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Loader Logic
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader-wrapper');
-      setTimeout(() => {
-        loader.classList.add('hidden');
-        document.body.classList.remove('loading');
-      }, 1500); // Give loader some time to shine
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Loader Logic moved to Sequential Animation Logic
+
+    // --- MAGNETIC BUTTONS ---
+    const magneticEls = document.querySelectorAll('.magnetic');
+    magneticEls.forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        el.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+        if (el.children[0]) {
+          // el.children[0].style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+        }
+      });
+
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = `translate(0px, 0px)`;
+      });
+    });
+
+    // --- SCROLL PROGRESS ---
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + "%";
     });
 
     // Smooth Scroll Link Adjustment
@@ -1189,6 +1944,102 @@
         }
       });
     });
+
+    // ─── CONTACT FORM TOGGLE ───
+    (function () {
+      const panel = document.getElementById('cf-panel');
+      const trigger = document.getElementById('cf-trigger');
+      if (!panel || !trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const isOpen = panel.classList.toggle('cf-open');
+        trigger.setAttribute('aria-expanded', isOpen);
+      });
+
+      // also allow keyboard Enter/Space
+      trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          trigger.click();
+        }
+      });
+    })();
+
+
+    // ─── HERO TYPEWRITER — sequential top → bottom ───
+    (function heroTypewriter() {
+      const LINES = [
+        { el: document.getElementById('hero-line-1'), text: 'Building Digital' },
+        { el: document.getElementById('hero-line-2'), text: 'Digital Experiences.' }
+      ];
+
+      const TYPE_SPEED = 68;   // ms per char — typing
+      const ERASE_SPEED = 40;   // ms per char — erasing
+      const GAP_LINES = 120;  // ms pause between finishing line 1 and starting line 2
+      const HOLD = 2200; // ms hold when both lines fully typed
+      const LOOP_PAUSE = 500;  // ms before next cycle
+
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+      /* set width in ch units */
+      function setW(el, n) { el.style.width = n > 0 ? n + 'ch' : '0'; }
+
+      /* type one line, character by character */
+      async function type({ el, text }) {
+        el.classList.add('typing');
+        for (let i = 1; i <= text.length; i++) {
+          setW(el, i);
+          await sleep(TYPE_SPEED);
+        }
+      }
+
+      /* erase one line, character by character */
+      async function erase({ el, text }) {
+        for (let i = text.length - 1; i >= 0; i--) {
+          setW(el, i);
+          await sleep(ERASE_SPEED);
+        }
+        el.classList.remove('typing');
+      }
+
+      async function loop() {
+        // Init: hide all
+        LINES.forEach(({ el }) => {
+          el.style.width = '0';
+          el.classList.remove('typing');
+        });
+
+        while (true) {
+          // ─ Type line 1 ─
+          await type(LINES[0]);
+          LINES[0].el.classList.remove('typing'); // stop cursor blink on line 1
+
+          // ─ Small gap, then type line 2 ─
+          await sleep(GAP_LINES);
+          await type(LINES[1]);
+
+          // ─ Hold both fully visible ─
+          await sleep(HOLD);
+
+          // ─ Erase line 1 first, then line 2 ─
+          await erase(LINES[0]);
+          await sleep(GAP_LINES);
+          await erase(LINES[1]);
+
+          // ─ Pause before next cycle ─
+          await sleep(LOOP_PAUSE);
+        }
+      }
+
+      // Kick off after loader is done
+      const obs = new MutationObserver(() => {
+        if (document.body.classList.contains('loaded')) {
+          obs.disconnect();
+          loop();
+        }
+      });
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    })();
   </script>
 </body>
 
