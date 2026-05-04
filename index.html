@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Creative Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="loading">
+  <!-- LOADING SCREEN -->
+  <div id="loader-wrapper">
+    <div class="loader-container">
+      <svg xmlns="http://www.w3.org/2000/svg" height="200" width="200">
+        <g style="order: -1;">
+          <polygon transform="rotate(45 100 100)" stroke-width="1" stroke="#3B82F6" fill="none"
+            points="70,70 148,50 130,130 50,150" id="bounce"></polygon>
+          <polygon transform="rotate(45 100 100)" stroke-width="1" stroke="#3B82F6" fill="none"
+            points="70,70 148,50 130,130 50,150" id="bounce2"></polygon>
+          <polygon transform="rotate(45 100 100)" stroke-width="2" stroke="" fill="#334155"
+            points="70,70 150,50 130,130 50,150"></polygon>
+          <polygon stroke-width="2" stroke="" fill="url(#gradiente)" points="100,70 150,100 100,130 50,100"></polygon>
+          <defs>
+            <linearGradient y2="100%" x2="10%" y1="0%" x1="0%" id="gradiente">
+              <stop style="stop-color: #1e293b;stop-opacity:1" offset="20%"></stop>
+              <stop style="stop-color:#334155;stop-opacity:1" offset="60%"></stop>
+            </linearGradient>
+          </defs>
+          <polygon transform="translate(20, 31)" stroke-width="2" stroke="" fill="#2563EB"
+            points="80,50 80,75 80,99 40,75"></polygon>
+          <polygon transform="translate(20, 31)" stroke-width="2" stroke="" fill="url(#gradiente2)"
+            points="40,-40 80,-40 80,99 40,75"></polygon>
+          <defs>
+            <linearGradient y2="100%" x2="0%" y1="-17%" x1="10%" id="gradiente2">
+              <stop style="stop-color: rgba(59, 130, 246, 0);stop-opacity:1" offset="20%"></stop>
+              <stop style="stop-color: rgba(59, 130, 246, 0.3);stop-opacity:1" offset="100%" id="animatedStop"></stop>
+            </linearGradient>
+          </defs>
+          <polygon transform="rotate(180 100 100) translate(20, 20)" stroke-width="2" stroke="" fill="#3B82F6"
+            points="80,50 80,75 80,99 40,75"></polygon>
+          <polygon transform="rotate(0 100 100) translate(60, 20)" stroke-width="2" stroke="" fill="url(#gradiente3)"
+            points="40,-40 80,-40 80,85 40,110.2"></polygon>
+          <defs>
+            <linearGradient y2="100%" x2="10%" y1="0%" x1="0%" id="gradiente3">
+              <stop style="stop-color: rgba(59, 130, 246, 0);stop-opacity:1" offset="20%"></stop>
+              <stop style="stop-color: rgba(59, 130, 246, 0.3);stop-opacity:1" offset="100%" id="animatedStop"></stop>
+            </linearGradient>
+          </defs>
+          <polygon transform="rotate(45 100 100) translate(80, 95)" stroke-width="2" stroke="" fill="#BFDBFE"
+            points="5,0 5,5 0,5 0,0" id="particles"></polygon>
+          <polygon transform="rotate(45 100 100) translate(80, 55)" stroke-width="2" stroke="" fill="#60A5FA"
+            points="6,0 6,6 0,6 0,0" id="particles"></polygon>
+          <polygon transform="rotate(45 100 100) translate(70, 80)" stroke-width="2" stroke="" fill="#fff"
+            points="2,0 2,2 0,2 0,0" id="particles"></polygon>
+          <polygon stroke-width="2" stroke="" fill="#1e293b" points="29.5,99.8 100,142 100,172 29.5,130"></polygon>
+          <polygon transform="translate(50, 92)" stroke-width="2" stroke="" fill="#0f172a"
+            points="50,50 120.5,8 120.5,35 50,80"></polygon>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- WELCOME OVERLAY -->
+  <div id="welcome-overlay">
+    <div class="welcome-text-wrap">
+      <h2 class="welcome-title">Mahardika<span>Rofiq</span></h2>
+      <p class="welcome-subtitle">Creative Frontend Developer</p>
+    </div>
+    <div class="welcome-progress-container">
+      <div class="welcome-progress-bar" id="welcome-progress"></div>
+    </div>
+  </div>
+
+  <div class="grain"></div>
+
+  <!-- NAVIGATION -->
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img
+        src="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png"
+        alt="Logo">
+      <div class="nav-logo-text">Mahardika<span>Rofiq</span></div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">Philosophy</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="stars-container" id="stars-container"></div>
+
+    <div class="hero-content">
+      <div class="availability-badge">
+        <span class="availability-dot"></span>
+        Available for elite collaborations
+      </div>
+      <span class="hero-pre">Mahardika Rofiq</span>
+      <h1>
+        <div class="line"><span id="hero-line-1">Architecting</span></div>
+        <div class="line"><span id="hero-line-2">Digital Excellence.</span></div>
+      </h1>
+      <p class="hero-bio">
+        I am a Creative Frontend Engineer specialized in crafting immersive digital ecosystems where technical
+        precision meets high-end aesthetics. Pushing the boundaries of what's possible on the web.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary magnetic">Explore Works</a>
+        <a href="#contact" class="btn btn-outline magnetic">Start a Project</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll to Explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-wrap">
+      <div class="about-content reveal">
+        <small class="label">My Philosophy</small>
+        <h2 class="section-title">Design is not just what it looks like, but how it works.</h2>
+
+        <div class="about-text">
+          <p>
+            I specialize in bridging the gap between complex engineering and intuitive human interaction.
+            My approach is rooted in the belief that every line of code should serve a purpose in enhancing
+            the user experience.
+          </p>
+          <p style="opacity: 0.7; font-size: 1.1rem;">
+            From high-performance web applications to experimental interactive playgrounds, I deliver
+            solutions that are as robust as they are beautiful.
+          </p>
+        </div>
+        <div class="skills-flex">
+          <div class="skill-box">System Architecture</div>
+          <div class="skill-box">Interactive Engineering</div>
+          <div class="skill-box">Visual Storytelling</div>
+        </div>
+      </div>
+      <div class="about-image reveal">
+        <div class="about-image-inner">
+          <img
+            src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776780976/WhatsApp_Image_2026-04-21_at_20.15.05_iwyu3o.jpg">
+        </div>
+      </div>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card" data-index="01">
+        <i class="fas fa-terminal"></i>
+        <div class="service-info">
+          <h3>Advanced Engineering</h3>
+          <p>Building scalable, performance-optimized frontend architectures using the latest industry standards.</p>
+        </div>
+      </div>
+      <div class="service-card" data-index="02">
+        <i class="fas fa-eye"></i>
+        <div class="service-info">
+          <h3>Visual Engineering</h3>
+          <p>Fusing motion design and interactive elements to create memorable digital narratives.</p>
+        </div>
+      </div>
+      <div class="service-card" data-index="03">
+        <i class="fas fa-layer-group"></i>
+        <div class="service-info">
+          <h3>Product Strategy</h3>
+          <p>Consulting on UI/UX and product flow to maximize engagement and conversion metrics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="marquee-container reveal" style="margin-bottom: 5rem; border: none; opacity: 0.4;">
+      <div class="marquee-content" style="animation-direction: reverse; animation-duration: 40s;">
+        <span class="marquee-item"><i class="fab fa-react"></i> React</span>
+        <span class="marquee-item"><i class="fab fa-node-js"></i> Node.js</span>
+        <span class="marquee-item"><i class="fab fa-js-square"></i> Next.js</span>
+        <span class="marquee-item"><i class="fas fa-wind"></i> Tailwind</span>
+        <span class="marquee-item"><i class="fas fa-cube"></i> Three.js</span>
+        <!-- Duplicated for Loop -->
+        <span class="marquee-item"><i class="fab fa-react"></i> React</span>
+        <span class="marquee-item"><i class="fab fa-node-js"></i> Node.js</span>
+        <span class="marquee-item"><i class="fab fa-js-square"></i> Next.js</span>
+        <span class="marquee-item"><i class="fas fa-wind"></i> Tailwind</span>
+        <span class="marquee-item"><i class="fas fa-cube"></i> Three.js</span>
+      </div>
+    </div>
+
+    <small class="label reveal">Portfolio Highlights</small>
+    <h2 class="section-title reveal">Selected Work</h2>
+
+    <div class="project-grid">
+      <!-- Project 1 -->
+      <a href="https://notes-app-modern-ai-edition.vercel.app/" target="_blank" class="project-card reveal">
+        <div class="project-visual">
+          <iframe src="https://notes-app-modern-ai-edition.vercel.app/" loading="lazy"></iframe>
+        </div>
+        <div class="project-info">
+          <span class="project-category">AI Productivity Ecosystem</span>
+          <h3>Notes — AI Intelligence</h3>
+          <p class="project-description">
+            A next-generation note-taking engine powered by LLMs. Features neural semantic search and automated
+            summarization.
+          </p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <span>Primary Role</span>
+              <span>Lead Architect</span>
+            </div>
+            <div class="meta-item">
+              <span>Focus</span>
+              <span>AI Integration</span>
+            </div>
+          </div>
+          <div class="project-tech-stack">
+            <span class="tech-pill">React 18</span>
+            <span class="tech-pill">OpenAI SDK</span>
+            <span class="tech-pill">Tailwind CSS</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 2: NEW PROJECT -->
+      <a href="https://crusor-delta.vercel.app/" target="_blank" class="project-card reveal">
+        <div class="project-visual">
+          <iframe src="https://crusor-delta.vercel.app/" loading="lazy"></iframe>
+        </div>
+        <div class="project-info">
+          <span class="project-category">Experimental Interaction</span>
+          <h3>Crusor Delta — Reptile Engine</h3>
+          <p class="project-description">
+            A specialized reptile-based interactive simulation exploring kinematics and procedural tail movement.
+            Features ultra-smooth movement logic.
+          </p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <span>Role</span>
+              <span>Creative Engineer</span>
+            </div>
+            <div class="meta-item">
+              <span>Focus</span>
+              <span>Kinematics & Motion</span>
+            </div>
+          </div>
+          <div class="project-tech-stack">
+            <span class="tech-pill">Procedural Animation</span>
+            <span class="tech-pill">Canvas API</span>
+            <span class="tech-pill">Math JS</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 3 -->
+      <a href="https://klik-bunga.vercel.app/" target="_blank" class="project-card reveal">
+        <div class="project-visual">
+          <iframe src="https://klik-bunga.vercel.app/" loading="lazy"></iframe>
+        </div>
+        <div class="project-info">
+          <span class="project-category">Luxury E-Commerce</span>
+          <h3>Klik Bunga</h3>
+          <p class="project-description">
+            A high-end retail experience for boutique florals. Optimized for high-fidelity visuals and seamless
+            transactional flows.
+          </p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <span>Primary Role</span>
+              <span>Fullstack Engineer</span>
+            </div>
+            <div class="meta-item">
+              <span>Focus</span>
+              <span>UX Performance</span>
+            </div>
+          </div>
+          <div class="project-tech-stack">
+            <span class="tech-pill">Next.js</span>
+            <span class="tech-pill">Stripe API</span>
+            <span class="tech-pill">Framer Motion</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 4 -->
+      <a href="https://sharinganvcv.github.io/valentine/" target="_blank" class="project-card reveal">
+        <div class="project-visual">
+          <iframe src="https://sharinganvcv.github.io/valentine/" loading="lazy"></iframe>
+        </div>
+        <div class="project-info">
+          <span class="project-category">Interactive Narrative</span>
+          <h3>Valentine Experience</h3>
+          <p class="project-description">
+            A poetic digital experience utilizing physics-based animations to tell a compelling story.
+          </p>
+          <div class="project-meta">
+            <div class="meta-item">
+              <span>Role</span>
+              <span>Interaction Lead</span>
+            </div>
+            <div class="meta-item">
+              <span>Focus</span>
+              <span>Motion Design</span>
+            </div>
+          </div>
+          <div class="project-tech-stack">
+            <span class="tech-pill">GSAP</span>
+            <span class="tech-pill">Web Audio</span>
+            <span class="tech-pill">Canvas API</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <small class="label reveal">Recognition</small>
+    <h2 class="section-title reveal">Certificates & Achievements</h2>
+    <div class="cert-grid">
+      <!-- Cert 1 -->
+      <div class="cert-card reveal">
+        <img
+          src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781080/Screenshot_2026-04-21_202935_nal36i.png"
+          alt="Fullstack Certificate">
+        <a href="https://drive.google.com/drive/folders/1LdaoS4GjJTRbwNKY9UckSNK9tWVZ-bo3?usp=drive_link"
+          target="_blank" class="cert-link-btn">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <div class="cert-overlay">
+          <small>Credential</small>
+          <h3>Fullstack Development</h3>
+        </div>
+      </div>
+      <!-- Cert 2 -->
+      <div class="cert-card reveal">
+        <img
+          src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781081/Screenshot_2026-04-21_203021_ojpwxb.png">
+        <a href="https://drive.google.com/drive/folders/1LdaoS4GjJTRbwNKY9UckSNK9tWVZ-bo3?usp=drive_link"
+          target="_blank" class="cert-link-btn">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <div class="cert-overlay">
+          <small>Credential</small>
+          <h3>Pelatihan Teknologi Kecerdasan Buatan (SMKN 1 Ciomas)</h3>
+        </div>
+      </div>
+      <!-- Cert 3 -->
+      <div class="cert-card reveal">
+        <img
+          src="https://res.cloudinary.com/dgednulg8/image/upload/q_auto/f_auto/v1776781081/Screenshot_2026-04-21_203106_vowyyn.png"
+          alt="Database Certificate">
+        <a href="https://drive.google.com/drive/folders/1LdaoS4GjJTRbwNKY9UckSNK9tWVZ-bo3?usp=drive_link"
+          target="_blank" class="cert-link-btn">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <div class="cert-overlay">
+          <small>Credential</small>
+          <h3>Dasar Pemrograman Software Development</h3>
+        </div>
+      </div>
+    </div>
+    <div class="cert-actions reveal">
+      <a href="https://drive.google.com/drive/folders/1LdaoS4GjJTRbwNKY9UckSNK9tWVZ-bo3?usp=drive_link" target="_blank"
+        class="btn-next">
+        Selengkapnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+
+      <!-- Left: info -->
+      <div class="reveal">
+        <small class="label">Inquiries</small>
+        <h2 class="section-title">Let's create<br>something great.</h2>
+        <p style="color: var(--muted); max-width: 300px; margin-bottom: 2rem;">
+          Saya selalu terbuka untuk kolaborasi baru atau sekadar diskusi ringan.
+        </p>
+        <div style="margin-top: 2rem;">
+          <small class="label" style="margin-bottom: 0.5rem; display: block; opacity: 0.6;">Direct Email</small>
+          <a href="mailto:rofikmahardika58@gmail.com"
+            style="color: var(--accent); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.9rem;">
+            rofikmahardika58@gmail.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: interactive form widget -->
+      <div class="reveal" style="display: flex; justify-content: center;">
+        <div class="cf-wrap">
+          <div class="cf-panel" id="cf-panel">
+
+            <!-- Trigger pill -->
+            <div class="cf-trigger" id="cf-trigger" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="cf-fields">
+              <i class="fas fa-bell"></i>
+              <span>Send me a Message</span>
+              <i class="fas fa-plus cf-icon-plus" style="margin-left: auto;"></i>
+            </div>
+
+            <!-- Expandable fields -->
+            <div class="cf-fields" id="cf-fields">
+              <form action="https://formspree.io/f/xqewdvjo" method="POST">
+                <div class="cf-field">
+                  <label for="cf-name">Full Name</label>
+                  <input id="cf-name" type="text" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="cf-field">
+                  <label for="cf-email">Email Address</label>
+                  <input id="cf-email" type="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="cf-field">
+                  <label for="cf-msg">Your Message</label>
+                  <textarea id="cf-msg" name="message" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button class="cf-submit" type="submit">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <img
+        src="https://res.cloudinary.com/dgednulg8/image/upload/v1776928985/ChatGPT_Image_Apr_23_2026_02_20_16_PM_fbwjju.png"
+        alt="Logo" style="height: 30px; width: fit-content; opacity: 0.6; filter: brightness(2);">
+      <p>&copy; 2026 Creative Portfolio. Serene Experience.</p>
+    </div>
+    <div>
+      <a href="mailto:rofikmahardika58@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/mahardika-rofiq-96117a39b/">LinkedIn</a>
+      <a href="https://github.com/sharinganvcv">GitHub</a>
+      <a href="https://www.instagram.com/mahardikarofiq/">Instagram</a>
+    </div>
+  </footer>
+
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
